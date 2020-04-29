@@ -1,0 +1,31 @@
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }} - Myblog</title>
+      {% else %}
+      <title>Welcome to Myblog</title>
+      {% endif %}
+    </head>
+    <body>
+        <div>Myblog: 
+            <a href="/post">Home</a>
+            <a href="/login">Login</a>
+            <a href="/sentiment">Sentiment</a>
+        </div>
+        
+        <hr>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+<!-- Tên của các block (ở đây là content ) phải là duy nhất (unique) -->
+
+    </body>
+</html>

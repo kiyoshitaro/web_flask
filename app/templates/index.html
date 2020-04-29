@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %} 
+<!-- Tên của các block (ở đây là content ) phải là duy nhất (unique) -->
+    {% if posts %}
+
+    <h1>Hi, {{ user.username }}!</h1>
+    {% for post in posts %}
+    <div><p>{{ post.author.username }}: <b>{{ post.body }}</b></p></div>
+    {% endfor %}
+    {% else %}
+    {% endif %}
+
+{% endblock %}
