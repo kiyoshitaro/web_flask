@@ -12,3 +12,11 @@ class LoginForm(FlaskForm):
 class SentimentForm(FlaskForm):
     sentence = StringField('Sentence', validators=[DataRequired()])
     submit = SubmitField('Check')
+
+class ActressForm(FlaskForm):
+    actress = StringField('Name', validators=[DataRequired()])
+    submit = SubmitField('Check')
+
+class CodeForm(FlaskForm):
+    actress_id = StringField('Id', validators=[DataRequired()])
+    submit = SubmitField('Check')
