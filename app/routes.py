@@ -1,8 +1,9 @@
 from app import app, model
 from flask import render_template, flash, redirect, request, jsonify
-from app.forms import LoginForm, SentimentForm, ActressForm, CodeForm
+from app.forms import LoginForm, SentimentForm, WordForm, ActressForm, CodeForm
 import requests
 
+dicts = open("dict.txt","r").read().split("\n")
 
 @app.route('/')
 @app.route('/index')
@@ -57,6 +58,31 @@ def predict():
     return render_template('sentiment.html', title='Sentiment', form=form)
 
 
+@app.route('/match_word', methods=['GET','POST'])
+
+def match():
+
+    form = WordForm()
+    words = form.word.data
+    if words:
+        words = words.split(" ")
+    res = []
+    if words and len(words) == 2:
+        print(words[1],"sssss")
+        for i in dicts:
+            if i.split(" ")[0] == words[1]:
+                res.append(i)
+
+    # data = request.get_json(force=True)
+    # return jsonify(output_text, output)
+    return render_template('match_word.html', title='Match word', form=form, res = res)
+
+# lst = open("Viet74K.txt").read().split("\n")
+# new_lst = [i.lower() for i in lst if len(i.split(" ")) == 2 and "-" not in i]
+# with open("dict.txt") as f:
+#     f.write("\n".join(new_lst))
+
+
 
 @app.route('/code', methods=['GET','POST'])
 
@@ -105,3 +131,4 @@ def search():
 
     # return jsonify(output_text, output)
     return render_template('code.html', title='Actress', form=form,formVideo = formVideo,actresses = actresses, videos = videos)
+

@@ -13,6 +13,10 @@ class SentimentForm(FlaskForm):
     sentence = StringField('Sentence', validators=[DataRequired()])
     submit = SubmitField('Check')
 
+class WordForm(FlaskForm):
+    word = StringField('Word', validators=[DataRequired()])
+    submit = SubmitField('Check')
+
 class ActressForm(FlaskForm):
     actress = StringField('Name', validators=[DataRequired()])
     submit = SubmitField('Check')
@@ -20,3 +24,4 @@ class ActressForm(FlaskForm):
 class CodeForm(FlaskForm):
     actress_id = StringField('Id', validators=[DataRequired()])
     submit = SubmitField('Check')
+
