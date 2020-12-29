@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %} 
+<!-- Tên của các block (ở đây là content ) phải là duy nhất (unique) -->
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>Type a word</h1>
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.word.label }}<br>
+                {{ form.word(size=32) }}<br>
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+    </div>
+  </div>
+
+<div class="table-responsive">
+  {% if res %}
+    <table class="table table-striped table-sm">
+    <thead class="thead-light">
+      <tr>
+        <th>Next word</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for w in res %}
+      <tr>
+        <td>{{w}}</td>
+      </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+
+{% else %}
+
+  <table class="table table-striped table-sm">
+
+  </table>
+{% endif %}
+
+</div  >
+
+{% endblock %}
