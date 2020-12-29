@@ -27,8 +27,6 @@ Open shell : scrapy shell “url”
     use $x(x_path string) to test xpath in console
 
 
-
-
 add FEED_EXPORT_ENCODING = 'utf-8' in settings.py to export readable json file
 
 
@@ -47,7 +45,7 @@ add FEED_EXPORT_ENCODING = 'utf-8' in settings.py to export readable json file
 
     Manually add "fee" info :,> , may be extract from "info" if u can process nlp <33 It is too hard @.@
     
-    ENOUGH, remove other trash code in utils.py :,<
+    ENOUGH, get out of other trash code in utils.py :,<
     
 ## TOPSIS ALGORITHM
 

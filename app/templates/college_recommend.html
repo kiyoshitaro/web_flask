@@ -12,8 +12,8 @@
 <br/>
 <br/>
 <div class="block-title">Hệ số</div>
-                                <form action="" method="post" novalidate>
-            {{ form.hidden_tag() }}
+                            <form action="" method="post" novalidate>
+                                    {{ form.hidden_tag() }}
 
                             <div class="tbody row">
                             
@@ -22,8 +22,7 @@
                                 {{form.subject1}}
                                 </div>
                             </div>
-                            
-
+                        
                             <div class="tbody row">
                                 <div class="col-8">{{form.point1.label}}</div>
                                 <div class="col-4">
@@ -31,16 +30,14 @@
                                 </div>
                             </div>
 
-                            <div class="tbody row">
-                            
+                            <div class="tbody row">        
                                 <div class="col-8">{{form.subject2.label}}</div>
                                 <div class="col-4">
                                 {{form.subject2}}
                                 </div>
                             </div>
 
-                            <div class="tbody row">
-                            
+                            <div class="tbody row">                  
                                 <div class="col-8">{{form.point2.label}}</div>
                                 <div class="col-4">
                                 {{form.point2}}
@@ -48,26 +45,74 @@
                             </div>
 
                             <div class="tbody row">
-                            
                                 <div class="col-8">{{form.city.label}}</div>
                                 <div class="col-4">
                                 {{form.city}}
                                 </div>
                             </div>
+
                             <div class="tbody row">
-                            
                                 <div class="col-8">{{form.fee.label}}</div>
                                 <div class="col-4">
                                 {{form.fee}}
                                 </div>
                             </div>
-                            <div class="tbody row">
 
+                            <div class="tbody row">
+                                <div class="col-8">{{form.favor.label}}</div>
+                                <div class="col-4">
+                                {{form.favor}}
+                                </div>
+                            </div>
+
+                            <div class="tbody row">
                                 <div class="col-12">
-                                {{ form.submit() }}
+                                    {{ form.submit() }}
                                 </div>
                             </div>
                             </form>
+
+
+
+  {% if res %}
+
+
+
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="col">
+          <div class="card shadow-sm">
+            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{res.logo}} role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
+
+            <div class="card-body">
+            <strong>{{res.name}}</strong>
+              <p class="card-text">{{res.address}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a type="button" class="btn btn-sm btn-outline-secondary" href = {{res.website}}>View</a>
+                  <a type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
+                </div>
+                <small class="text-muted">{{res.code}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+{% else %}
+<div></div>
+{% endif %}
 
                 </div>
                 </div>
