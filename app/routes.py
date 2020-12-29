@@ -15,19 +15,22 @@ def index():
 
 
 import json
-datas = json.load(open("data/clean_university_.json"))
+datas = json.load(open("data/clean_university.json"))
 areas = dict([(area,i) for i, area in enumerate(json.load(open("data/city.json")).keys())])
-st_data = (2, "A02", 18, "A01" , 22, 6)
-st_data = (4, 'D07', 19.5, 'D01', 16, 4.5)
+st_data = (2, "A02", 18, "A01" , 22, 6, "khoa học kĩ thuật")
+st_data = (4, 'D07', 19.5, 'D01', 16, 4.5, "dược")
+from difflib import SequenceMatcher
+
+def similar(a, b):
+    return SequenceMatcher(None, a, b).ratio()
 
 def make_matrix(datas, st_data):
     input_array = []
     for college in datas:
+        
         var_area = (float(areas[college["area"]]) - float(st_data[0]))**2
-        if float(college["fee"]) < st_data[5]:
-            var_fee = st_data[5] - float(college["fee"])
-        else:
-            var_fee = (float(college["fee"]) - st_data[5])**2
+
+
         var_point = 0
         c = 0
         if(st_data[1] in college["point"]):
@@ -48,19 +51,46 @@ def make_matrix(datas, st_data):
         else:
             var_point /= c
 
-        input_array.append([var_area,var_fee,var_point])
+
+
+        if float(college["fee"]) < st_data[5]:
+            var_fee = st_data[5] - float(college["fee"])
+        else:
+            var_fee = (float(college["fee"]) - st_data[5])**2
+
+
+
+        var_major = sum(sorted([similar(st_data[6],i) for i in college["major_name"]])[-3:])
+
+        input_array.append([var_area,var_fee,var_point, var_major])
     return input_array
 
 from topsis import topsis
+t = [i for i in datas if i["point"] != {}]
 input_array = make_matrix(t,st_data)
-topsis(input_array,[0.33,0.33,0.33],[-1, -1, -1])
+topsis(input_array,[1,1,1,1],[-1, -1, -1,1])
 
 
-@app.route('/college_recommend')
+@app.route('/college_recommend',methods=['GET','POST'])
 def college_recommend():
     form = StudentForm()
-    print(form.subject1,"ssssss")
-    return render_template('college_recommend.html', title='College Recomender', form=form)
+    area_city = json.load(open("data/city.json"))
+    res = {}
+    if form.validate_on_submit():
+        area_id = ""
+        for k,v in area_city.items():
+            if(form.city.data in v):
+                area_id = areas[k]
+    
+
+
+        st_data = (area_id, form.subject1.data, float(form.point1.data), form.subject2.data, float(form.point2.data), float(form.fee.data), form.favor.data)
+        input_array = make_matrix(t,st_data)
+        print(st_data,"ssssss")
+        id, _ = topsis(input_array,[1,1,1,1],[-1, -1, -1,1])
+        res = t[id]
+
+    return render_template('college_recommend.html', title='College Recomender', form=form,res = res)
 
 
 @app.route('/post')

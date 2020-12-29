@@ -42,4 +42,6 @@ class StudentForm(FlaskForm):
     # area = SelectField('Khu vực sinh sống', choices=areas)
     city = SelectField('Thành phố sinh sống', choices=cities)
     fee = StringField('Số tiền có thể chi trả 1 kì (triệu đồng)', validators=[DataRequired()])
+    favor = StringField('Sở thích, nguyện vọng của sinh viên', validators=[DataRequired()])
+    
     submit = SubmitField('Submit')
