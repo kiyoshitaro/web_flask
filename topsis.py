@@ -1,3 +1,7 @@
+"""
+https://github.com/shivambehl/TopsisPy
+"""
+
 import os
 import sys
 import numpy as np
