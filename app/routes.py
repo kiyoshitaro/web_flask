@@ -1,6 +1,6 @@
 from app import app, model
 from flask import render_template, flash, redirect, request, jsonify
-from app.forms import LoginForm, SentimentForm, WordForm, ActressForm, CodeForm
+from app.forms import LoginForm, SentimentForm, WordForm, ActressForm, CodeForm, StudentForm
 import requests
 
 dicts = open("dict.txt","r").read().split("\n")
@@ -10,6 +10,58 @@ dicts = open("dict.txt","r").read().split("\n")
 def index():
     user = {'username': 'Thai'}
     return render_template('index.html', title='Home', user=user)
+
+
+
+
+import json
+datas = json.load(open("data/clean_university_.json"))
+areas = dict([(area,i) for i, area in enumerate(json.load(open("data/city.json")).keys())])
+st_data = (2, "A02", 18, "A01" , 22, 6)
+st_data = (4, 'D07', 19.5, 'D01', 16, 4.5)
+
+def make_matrix(datas, st_data):
+    input_array = []
+    for college in datas:
+        var_area = (float(areas[college["area"]]) - float(st_data[0]))**2
+        if float(college["fee"]) < st_data[5]:
+            var_fee = st_data[5] - float(college["fee"])
+        else:
+            var_fee = (float(college["fee"]) - st_data[5])**2
+        var_point = 0
+        c = 0
+        if(st_data[1] in college["point"]):
+            c = c+1
+            if st_data[2] > float(college["point"][st_data[1]]):
+                var_point += st_data[2] - float(college["point"][st_data[1]])
+            else:
+                var_point += (float(college["point"][st_data[1]]) - st_data[2])**3
+        if(st_data[3] in college["point"]):
+            c = c+1
+            if st_data[4] > float(college["point"][st_data[3]]):
+                var_point += st_data[4] - float(college["point"][st_data[3]])
+            else:
+                var_point += (float(college["point"][st_data[3]]) - st_data[4])**3
+
+        if c == 0:
+            var_point = 100
+        else:
+            var_point /= c
+
+        input_array.append([var_area,var_fee,var_point])
+    return input_array
+
+from topsis import topsis
+input_array = make_matrix(t,st_data)
+topsis(input_array,[0.33,0.33,0.33],[-1, -1, -1])
+
+
+@app.route('/college_recommend')
+def college_recommend():
+    form = StudentForm()
+    print(form.subject1,"ssssss")
+    return render_template('college_recommend.html', title='College Recomender', form=form)
+
 
 @app.route('/post')
 def post():
