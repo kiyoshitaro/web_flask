@@ -27,7 +27,7 @@ numpy==1.18.3
 parso==0.6.2
 pexpect==4.8.0
 pickleshare==0.7.5
-post==2019.4.13
+# post==2019.4.13
 prompt-toolkit==3.0.4
 ptyprocess==0.6.0
 public==2019.4.13
