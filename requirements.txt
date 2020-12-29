@@ -52,6 +52,6 @@ Werkzeug==1.0.1
 WTForms==2.2.1
 gunicorn
 
-scrapy
-scrapy-user-agents
-scrapy-proxies-tool
+# scrapy
+# scrapy-user-agents
+# scrapy-proxies-tool
