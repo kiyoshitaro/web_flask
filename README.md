@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/kiyoshitaro/web_flask)
 
 
-Build an app to recommend college to student in Viet Nam
+Build an app to recommend college to student in Viet Nam and complete assignment in school (yep it's the main reason)
 
 I also have a little note about scrapy, flask ,... to remind myself, just ignore this stuff :')
 
@@ -150,7 +150,7 @@ flask run
 
 - Prepare requirements.txt
 
-- Heroku not supply Web Server for app, instead it suppose that we use our own Web server. So we use **gunicorn**
+- Heroku not supply Web Server for app, instead it suppose that we use our own Web server. So i use **gunicorn**
 
 - Create Procfile: instruct Heroku how to execute the app
 
