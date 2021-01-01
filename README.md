@@ -150,7 +150,7 @@ flask run
 
 - Prepare requirements.txt
 
-- Heroku not supply Web Server for app, instead it suppose that we use our own Web server. So we use **gunicorn**
+- Heroku not supply Web Server for app, instead it suppose that we use our own Web server. So i use **gunicorn**
 
 - Create Procfile: instruct Heroku how to execute the app
 
