@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/kiyoshitaro/web_flask)
 
 
-Build an app to recommend college to student in Viet Nam and complete assignment in school (yep it's the main reason)
+Build an app to recommend students to choose college in Viet Nam and complete assignment in school (yep it's the main reason)
 
 I also have a little note about scrapy, flask ,... to remind myself, just ignore this stuff :')
 
