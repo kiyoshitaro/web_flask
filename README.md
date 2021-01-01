@@ -42,6 +42,20 @@ Open shell : scrapy shell “url”
 
 > add FEED_EXPORT_ENCODING = 'utf-8' in settings.py to export readable json file
 
+### Splash
+``` sh
+docker pull scrapinghub/splash
+docker run -p 5023:5023 -p 8050:8050 -p 8051:8051 scrapinghub/splash
+
+```
+
+To run in notebook: 
+```sh
+$ docker pull scrapinghub/splash-jupyter
+$ docker run -p 8888:8888 -it scrapinghub/splash-jupyter
+```
+Copy/paste this URL into your browser when you connect for the first time
+https://vimeo.com/129244053
 
 ### Step to crawl
 
