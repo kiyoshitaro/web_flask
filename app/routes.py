@@ -48,7 +48,7 @@ def make_matrix(datas, st_data):
                 var_point += (float(college["point"][st_data[3]]) - st_data[4])*4
 
         if c == 0:
-            var_point = 324
+            var_point = 200
         else:
             var_point /= c
 
