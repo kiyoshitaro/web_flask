@@ -48,7 +48,7 @@ def make_matrix(datas, st_data):
                 var_point += (float(college["point"][st_data[3]]) - st_data[4])*4
 
         if c == 0:
-            var_point = 100
+            var_point = 324
         else:
             var_point /= c
 
@@ -82,7 +82,7 @@ def college_recommend():
     inps = []
     points = []
     majors = []
-
+    all_std = []
     factors = [1,1,1,1]
     factorForm = FactorForm()
 
@@ -94,6 +94,7 @@ def college_recommend():
     
         # factors = [int(form.area_factor.data),int(form.fee_factor.data),int(form.point_factor.data),int(form.major_factor.data)]
         st_data = (area_id, form.subject1.data, float(form.point1.data), form.subject2.data, float(form.point2.data), float(form.fee.data), form.favor.data)
+
         input_array = make_matrix(t,st_data)
         print(st_data,"ssssss")
         # print(type(form.area_factor.data),form.area_factor.data,"tttt")
@@ -101,6 +102,9 @@ def college_recommend():
         # ids = np.append(ids,ids_bot)
 
         inps = [[round(t,2) for t in input_array[i]] for i in ids ]
+        
+        all_std = [(j[0],[round(t,2) for t in j[1]],j[2]) for j in sorted(zip([k["name"] for k in t],input_array,_), key  = lambda x: x[2])[::-1] ]
+        print(all_std,_)
         scores = [_[i] for i in ids]
         
         for id in ids:
@@ -117,7 +121,7 @@ def college_recommend():
         print(len(ids),"tttttt")
         # res = t[id]
 
-    return render_template('college_recommend.html', title='College Recomender', form=form,ress = zip(res,scores,inps,points, majors))
+    return render_template('college_recommend.html', title='College Recomender', form=form,ress = zip(res,scores,inps,points, majors),all_std= all_std)
 
 
 @app.route('/post')
