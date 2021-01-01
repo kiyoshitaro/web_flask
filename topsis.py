@@ -69,8 +69,10 @@ def performance_score(distance_best, distance_worst, n, m):
 
 
 def topsis(a, w, sign):
+
+
     a = floater(a)
-    # print(a)
+    # a = a.astype(float)
     n = len(a)
     # print(n)
     # print(len(a[0]))
@@ -83,7 +85,8 @@ def topsis(a, w, sign):
     (distance_worst, distance_best) = euclidean_distance(
         t, ideal_worst, ideal_best, n, m)
     score = performance_score(distance_best, distance_worst, n, m)
-    return (np.argmax(score), score)
+    return (score.argsort()[-3:][::-1],score.argsort()[:3][::-1],score)
+    # return (np.argmax(score), score)
     # returns a tupple with index of best data point as first element and score array(numpy) as the other
 
 

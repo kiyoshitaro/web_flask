@@ -146,86 +146,86 @@ def add_uni_detail_info():
 
 
 
-# ADD MORE INFO TO CLEAN_DATA WITHOUT REMOVE MUNUAL FEATURE 
-new_new_datas = []
-uni = json.load(open("data/university.json"))
+# # ADD MORE INFO TO CLEAN_DATA WITHOUT REMOVE MUNUAL FEATURE 
+# new_new_datas = []
+# uni = json.load(open("data/university.json"))
 
-for i in new_datas:
-    for j in uni:
-        if(i["abbr"] == j["abbr"]):
-            i["logo"] = j["logo"]
-            break
-    new_new_datas.append(i)
-with open('clean_university.json', 'w') as outfile:
-    json.dump(new_new_datas, outfile,ensure_ascii=False, indent=4)
-
-
-
-
-
-majors = []
-for i in new_datas:
-    majors.extend(i["major_name"])
-
-INTAB = "ạảãàáâậầấẩẫăắằặẳẵóòọõỏôộổỗồốơờớợởỡéèẻẹẽêếềệểễúùụủũưựữửừứíìịỉĩýỳỷỵỹđẠẢÃÀÁÂẬẦẤẨẪĂẮẰẶẲẴÓÒỌÕỎÔỘỔỖỒỐƠỜỚỢỞỠÉÈẺẸẼÊẾỀỆỂỄÚÙỤỦŨƯỰỮỬỪỨÍÌỊỈĨÝỲỶỴỸĐ"
-OUTTAB = "a" * 17 + "o" * 17 + "e" * 11 + "u" * 11 + "i" * 5 + "y" * 5 + "d" + \
-         "A" * 17 + "O" * 17 + "E" * 11 + "U" * 11 + "I" * 5 + "Y" * 5 + "D"
-r = re.compile("|".join(INTAB))
-replaces_dict = dict(zip(INTAB, OUTTAB))
-
-majors = [r.sub(lambda m: replaces_dict[m.group(0)], re.sub(r'[^àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝa-zA-Z\s]+', '', i, flags=re.MULTILINE)).lower() for i in majors]
-majors.sort()
-
-gr_major = set()
-for i in majors:
-    x = "_".join(i.split(" ")[:2])
-    gr_major.update([x])
+# for i in new_datas:
+#     for j in uni:
+#         if(i["abbr"] == j["abbr"]):
+#             i["logo"] = j["logo"]
+#             break
+#     new_new_datas.append(i)
+# with open('clean_university.json', 'w') as outfile:
+#     json.dump(new_new_datas, outfile,ensure_ascii=False, indent=4)
 
 
 
 
 
+# majors = []
+# for i in new_datas:
+#     majors.extend(i["major_name"])
 
-new_new_datas = json.load(open("clean_university.json"))
-new_new_new_datas = []
-for i in new_new_datas:
-    for m in s:
-        if(i["code"] == m["university_meta"]["university_code"]):
+# INTAB = "ạảãàáâậầấẩẫăắằặẳẵóòọõỏôộổỗồốơờớợởỡéèẻẹẽêếềệểễúùụủũưựữửừứíìịỉĩýỳỷỵỹđẠẢÃÀÁÂẬẦẤẨẪĂẮẰẶẲẴÓÒỌÕỎÔỘỔỖỒỐƠỜỚỢỞỠÉÈẺẸẼÊẾỀỆỂỄÚÙỤỦŨƯỰỮỬỪỨÍÌỊỈĨÝỲỶỴỸĐ"
+# OUTTAB = "a" * 17 + "o" * 17 + "e" * 11 + "u" * 11 + "i" * 5 + "y" * 5 + "d" + \
+#          "A" * 17 + "O" * 17 + "E" * 11 + "U" * 11 + "I" * 5 + "Y" * 5 + "D"
+# r = re.compile("|".join(INTAB))
+# replaces_dict = dict(zip(INTAB, OUTTAB))
 
-            subject_group_all = [j["subject_group"].replace(" ","").split(";") for j in m["diemchuan_datas"]]
-            subject_group = set()
-            for t in subject_group_all:
-                if t != "":
-                    subject_group.update(t)
-            subject_group = [t for t in subject_group if ("A" in t or "B" in t, "C" in t, "D" in t) and len(t)==3]
+# majors = [r.sub(lambda m: replaces_dict[m.group(0)], re.sub(r'[^àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝa-zA-Z\s]+', '', i, flags=re.MULTILINE)).lower() for i in majors]
+# majors.sort()
 
-            # for i in subject_group_all:
-            #     if i != "" and ("A" in i or "B" in i or "C" in i or "D" in i) and len(i)==3:
-            #         subject_group.update(i)
+# gr_major = set()
+# for i in majors:
+#     x = "_".join(i.split(" ")[:2])
+#     gr_major.update([x])
+
+
+
+
+
+
+# new_new_datas = json.load(open("clean_university.json"))
+# new_new_new_datas = []
+# for i in new_new_datas:
+#     for m in s:
+#         if(i["code"] == m["university_meta"]["university_code"]):
+
+#             subject_group_all = [j["subject_group"].replace(" ","").split(";") for j in m["diemchuan_datas"]]
+#             subject_group = set()
+#             for t in subject_group_all:
+#                 if t != "":
+#                     subject_group.update(t)
+#             subject_group = [t for t in subject_group if ("A" in t or "B" in t, "C" in t, "D" in t) and len(t)==3]
+
+#             # for i in subject_group_all:
+#             #     if i != "" and ("A" in i or "B" in i or "C" in i or "D" in i) and len(i)==3:
+#             #         subject_group.update(i)
             
-            point_all = []
-            for l in subject_group:
-                point_all.append((l,[]))
-            point_all = dict(point_all)
-            for u in m["diemchuan_datas"]:
-                if(is_number(u["point"]) and float(u["point"]) < 40 and u["subject_group"] in subject_group):
-                    if("Ngôn ngữ" in u["major_name"] or "Thang điểm 40" in u["note"]):  
-                        point_all[u["subject_group"]].append(float(u["point"])*3/4)
-                    else:
-                        point_all[u["subject_group"]].append(float(u["point"]))
+#             point_all = []
+#             for l in subject_group:
+#                 point_all.append((l,[]))
+#             point_all = dict(point_all)
+#             for u in m["diemchuan_datas"]:
+#                 if(is_number(u["point"]) and float(u["point"]) < 40 and u["subject_group"] in subject_group):
+#                     if("Ngôn ngữ" in u["major_name"] or "Thang điểm 40" in u["note"]):  
+#                         point_all[u["subject_group"]].append(float(u["point"])*3/4)
+#                     else:
+#                         point_all[u["subject_group"]].append(float(u["point"]))
             
             
-            point = []            
-            for l in subject_group:
-                if(len(point_all[l]) >0):
-                    point.append((l,sum(point_all[l])/len(point_all[l])))
-            point = dict(point)
+#             point = []            
+#             for l in subject_group:
+#                 if(len(point_all[l]) >0):
+#                     point.append((l,sum(point_all[l])/len(point_all[l])))
+#             point = dict(point)
             
-            print(i)
-            i["subject_group"] =  subject_group
-            i["point_all"] = point_all
-            i["point"] = point
-            break
-    new_new_new_datas.append(i)
-with open('clean_university_.json', 'w') as outfile:
-    json.dump(new_new_new_datas, outfile,ensure_ascii=False, indent=4)
+#             print(i)
+#             i["subject_group"] =  subject_group
+#             i["point_all"] = point_all
+#             i["point"] = point
+#             break
+#     new_new_new_datas.append(i)
+# with open('clean_university_.json', 'w') as outfile:
+#     json.dump(new_new_new_datas, outfile,ensure_ascii=False, indent=4)

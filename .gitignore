@@ -1,3 +1,6 @@
 datasets
 app.db
 web_crawler/spiders/__pycache__
+hequyetdinh.pdf
+.vscode
+__pycache__

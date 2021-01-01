@@ -1,6 +1,6 @@
 from app import app, model
 from flask import render_template, flash, redirect, request, jsonify
-from app.forms import LoginForm, SentimentForm, WordForm, ActressForm, CodeForm, StudentForm
+from app.forms import LoginForm, SentimentForm, WordForm, ActressForm, CodeForm, StudentForm, FactorForm
 import requests
 
 dicts = open("dict.txt","r").read().split("\n")
@@ -19,6 +19,7 @@ datas = json.load(open("data/clean_university.json"))
 areas = dict([(area,i) for i, area in enumerate(json.load(open("data/city.json")).keys())])
 st_data = (2, "A02", 18, "A01" , 22, 6, "khoa học kĩ thuật")
 st_data = (4, 'D07', 19.5, 'D01', 16, 4.5, "dược")
+st_data = (7, 'A01', 19.5, 'N00', 22, 10, "âm nhạc")
 from difflib import SequenceMatcher
 
 def similar(a, b):
@@ -38,16 +39,16 @@ def make_matrix(datas, st_data):
             if st_data[2] > float(college["point"][st_data[1]]):
                 var_point += st_data[2] - float(college["point"][st_data[1]])
             else:
-                var_point += (float(college["point"][st_data[1]]) - st_data[2])**3
+                var_point += (float(college["point"][st_data[1]]) - st_data[2])*4
         if(st_data[3] in college["point"]):
             c = c+1
             if st_data[4] > float(college["point"][st_data[3]]):
                 var_point += st_data[4] - float(college["point"][st_data[3]])
             else:
-                var_point += (float(college["point"][st_data[3]]) - st_data[4])**3
+                var_point += (float(college["point"][st_data[3]]) - st_data[4])*4
 
         if c == 0:
-            var_point = 100
+            var_point = 324
         else:
             var_point /= c
 
@@ -56,11 +57,11 @@ def make_matrix(datas, st_data):
         if float(college["fee"]) < st_data[5]:
             var_fee = st_data[5] - float(college["fee"])
         else:
-            var_fee = (float(college["fee"]) - st_data[5])**2
+            var_fee = (float(college["fee"]) - st_data[5])*3
 
 
 
-        var_major = sum(sorted([similar(st_data[6],i) for i in college["major_name"]])[-3:])
+        var_major = sum(sorted([similar(st_data[6].lower(),i.lower())**2 for i in college["major_name"]])[-3:]) * 10
 
         input_array.append([var_area,var_fee,var_point, var_major])
     return input_array
@@ -73,24 +74,54 @@ topsis(input_array,[1,1,1,1],[-1, -1, -1,1])
 
 @app.route('/college_recommend',methods=['GET','POST'])
 def college_recommend():
+    import numpy as np
     form = StudentForm()
     area_city = json.load(open("data/city.json"))
-    res = {}
+    res = []
+    scores = []
+    inps = []
+    points = []
+    majors = []
+    all_std = []
+    factors = [1,1,1,1]
+    factorForm = FactorForm()
+
     if form.validate_on_submit():
         area_id = ""
         for k,v in area_city.items():
             if(form.city.data in v):
                 area_id = areas[k]
     
-
-
+        # factors = [int(form.area_factor.data),int(form.fee_factor.data),int(form.point_factor.data),int(form.major_factor.data)]
         st_data = (area_id, form.subject1.data, float(form.point1.data), form.subject2.data, float(form.point2.data), float(form.fee.data), form.favor.data)
+
         input_array = make_matrix(t,st_data)
         print(st_data,"ssssss")
-        id, _ = topsis(input_array,[1,1,1,1],[-1, -1, -1,1])
-        res = t[id]
+        # print(type(form.area_factor.data),form.area_factor.data,"tttt")
+        ids, ids_bot, _ = topsis(input_array,factors,[-1, -1, -1,1])
+        # ids = np.append(ids,ids_bot)
 
-    return render_template('college_recommend.html', title='College Recomender', form=form,res = res)
+        inps = [[round(t,2) for t in input_array[i]] for i in ids ]
+        
+        all_std = [(j[0],[round(t,2) for t in j[1]],j[2]) for j in sorted(zip([k["name"] for k in t],input_array,_), key  = lambda x: x[2])[::-1] ]
+        print(all_std,_)
+        scores = [_[i] for i in ids]
+        
+        for id in ids:
+            p = []
+            if form.subject1.data in t[id]["point"]:
+                p = [[form.subject1.data, round(t[id]["point"][form.subject1.data],2)]]
+            if form.subject2.data in t[id]["point"]:
+                p.append([form.subject2.data, round(t[id]["point"][form.subject2.data],2)])
+            points.append(p)
+        majors = [sorted(t[i]["major_name"],key = lambda x: similar(st_data[6],x))[-5:][::-1] for i in ids]
+        for id in ids:
+            res.append(t[id])
+        print(points, majors)
+        print(len(ids),"tttttt")
+        # res = t[id]
+
+    return render_template('college_recommend.html', title='College Recomender', form=form,ress = zip(res,scores,inps,points, majors),all_std= all_std)
 
 
 @app.route('/post')
