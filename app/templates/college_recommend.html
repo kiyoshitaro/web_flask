@@ -1,121 +1,165 @@
-{% extends "base.html" %}
+      {% extends "base.html" %}
 
-{% block content %} 
-<!-- Tên của các block (ở đây là content ) phải là duy nhất (unique) -->
-
-
-
-<div class="row">
-    <div class="col-md-6">
-<br/>
-<br/>
-<br/>
-<br/>
-<div class="block-title">Hệ số</div>
-                            <form action="" method="post" novalidate>
-                                    {{ form.hidden_tag() }}
-
-                            <div class="tbody row">
-                            
-                                <div class="col-8">{{form.subject1.label}}</div>
-                                <div class="col-4">
-                                {{form.subject1}}
-                                </div>
-                            </div>
-                        
-                            <div class="tbody row">
-                                <div class="col-8">{{form.point1.label}}</div>
-                                <div class="col-4">
-                                {{form.point1}}
-                                </div>
-                            </div>
-
-                            <div class="tbody row">        
-                                <div class="col-8">{{form.subject2.label}}</div>
-                                <div class="col-4">
-                                {{form.subject2}}
-                                </div>
-                            </div>
-
-                            <div class="tbody row">                  
-                                <div class="col-8">{{form.point2.label}}</div>
-                                <div class="col-4">
-                                {{form.point2}}
-                                </div>
-                            </div>
-
-                            <div class="tbody row">
-                                <div class="col-8">{{form.city.label}}</div>
-                                <div class="col-4">
-                                {{form.city}}
-                                </div>
-                            </div>
-
-                            <div class="tbody row">
-                                <div class="col-8">{{form.fee.label}}</div>
-                                <div class="col-4">
-                                {{form.fee}}
-                                </div>
-                            </div>
-
-                            <div class="tbody row">
-                                <div class="col-8">{{form.favor.label}}</div>
-                                <div class="col-4">
-                                {{form.favor}}
-                                </div>
-                            </div>
-
-                            <div class="tbody row">
-                                <div class="col-12">
-                                    {{ form.submit() }}
-                                </div>
-                            </div>
-                            </form>
+      {% block content %}
+      <!-- Tên của các block (ở đây là content ) phải là duy nhất (unique) -->
 
 
 
-  {% if res %}
-
-
-
-
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col">
-          <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{res.logo}} role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
-
-            <div class="card-body">
-            <strong>{{res.name}}</strong>
-              <p class="card-text">{{res.address}}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <a type="button" class="btn btn-sm btn-outline-secondary" href = {{res.website}}>View</a>
-                  <a type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
-                </div>
-                <small class="text-muted">{{res.code}}</small>
-              </div>
+      <section class="search-upgrade">
+         <div class="container-fluid p-0">
+            <div class="bgr-layer">
+               <div class="inner">
+                  <h1>GỢI Ý ĐĂNG KÝ<br>TRƯỜNG ĐẠI HỌC TẠI VIỆT NAM CHO HỌC SINH </h1>
+                  <p>Kênh Tuyển Sinh tổng hợp danh sách các trường Đại học - Cao đẳng tại Việt Nam, cung cấp thông tin
+                     liên hệ/chương trình đào tạo/mức học phí/điểm chuẩn qua các năm của mỗi trường, giúp Quý phụ huynh
+                     và học sinh/sinh viên tham khảo để lựa chọn môi trường giáo dục phù hợp.</p>
+               </div>
             </div>
-          </div>
-        </div>
-       
-      </div>
+         </div>
+
+
+         <div class="container">
+
+            <form action="" method="post" validate>
+               {{ form.hidden_tag() }}
+
+               <div class="row">
+                  <div class="col-md-9">
+                     <div class="search" style="margin-right: 0px;">
+                        <h2 class="uni-name">Thuộc tính</h2>
+                        <hr>
+
+                        {{form.subject1.label}}
+                        <br />
+                        {{form.subject1}}
+                        <hr>
+                        {{form.point1.label}}
+                        <br />
+
+                        {{form.point1}}
+                        <hr>
+                        {{form.subject2.label}}
+                        <br />
+
+                        {{form.subject2}}
+                        <hr>
+                        {{form.point2.label}}
+                        <br />
+
+                        {{form.point2}}
+                        <hr>
+                        {{form.city.label}}
+                        <br />
+
+                        {{form.city}}
+                        <hr>
+                        {{form.fee.label}}
+                        <br />
+
+                        {{form.fee}}
+                        <hr>
+                        {{form.favor.label}}
+                        <br />
+                        {{form.favor}}
+                        <div class="tbody row">
+                           <div class="col-10"></div>
+                           <div class="col-2">
+                              {{ form.submit() }}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+
+
+            </form>
 
 
 
 
 
+         </div>
 
 
+         {% if ress %}
+
+         <div id="pjax_010" data-pjax-container="" data-pjax-timeout="20000">
+
+            <div class="uni-list grid">
+               {% for res, score, inp, point, major in ress %}
+
+               <div class="uni-item" style="max-height: 800px;">
+                  <div class="uni-bg"><img src="https://media.kenhtuyensinh.vn/images/cms/2018/10/oxford-campus.jpg"
+                        class=" b-error"></div>
+                  <div class="uni-logo"><img class="img-fluid b-error" src={{res.logo}} alt={{res.name}}></div>
+                  <div class="name-group">{{res.abbr}}</div>
+                  <div class="group-item">
+                     <div class="uni-name">{{res.name}}</div>
+                     <div class="uni-description">
+                        <div class="name-group">{{res.abbr}}</div>
+                        <p>{{res.address}}</p>
+                        <span class="uni-name">Thành lập năm</span>: {{res.year}}
+                        <br />
+                        <span class="uni-name">Học phí 1 kỳ</span>: {{res.fee}} triệu đồng
+                        <br />
+                        <span class="uni-name">TB điểm thi các năm trước</span>: <br />
+                        {%for p in point%}
+                        {% if p[0] %}
+
+                        <span>Khối {{p[0]}} : {{p[1]}} điểm </span> <br />
+                        {% endif %}
+
+                        {% endfor %}
+
+                        <br />
+                        <span class="uni-name">Gợi ý đăng kí các ngành</span>: {{major}}
+                        <br />
+                        <hr>
+
+                        <div class="table-score">
+                           <div class="table-title uni-name">Bảng đánh giá</div>
+                           <br />
+                           <div class="thead row">
+                              <div class="col-3">Độ lệch vị trí địa lý</div>
+                              <div class="col-3">Độ lệch học phí</div>
+                              <div class="col-3">Độ lệch điểm thi</div>
+                              <div class="col-3">Chuyên ngành</div>
+                           </div>
+                           <div class="tbody">
+                              <div class="row">
+                                 <div class="col-3">{{inp[0]}}</div>
+                                 <div class="col-3">{{inp[1]}}</div>
+                                 <div class="col-3">{{inp[2]}}</div>
+                                 <div class="col-3">{{inp[3]}}</div>
+                              </div>
+                              <br />
+                              <br />
+                              <p class="uni-name">*Score: {{score}}</p>
 
 
+                           </div>
+                        </div>
+
+                     </div>
+                     <div class="locode"><span class="uni-location"><i class="fa fa-map-marker"
+                              aria-hidden="true"></i>{{res.city}}</span><span class="uni-code">Mã trường:
+                           <strong>{{res.code}}</strong></span></div>
+                  </div>
+                  <a data-pjax="0" class="link" href={{res.website}}></a>
+               </div>
+               {% endfor %}
 
 
-{% else %}
-<div></div>
-{% endif %}
+            </div>
 
-                </div>
-                </div>
-                
 
-{% endblock %}
+         </div>
+         </div>
+
+
+         {% else %}
+         <div></div>
+         {% endif %}
+      </section>
+
+      {% endblock %}

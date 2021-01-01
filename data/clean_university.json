@@ -6082,22 +6082,30 @@
             "Thanh nhạc (4 năm)",
             "Thanh nhạc (4 năm)",
             "Âm nhạc học (4 năm)",
-            "Chỉ huy âm nhạc VB2 (2 năm):  Chỉ huy Hợp xướng; Chỉ huy Dàn nhạc",
-            "Chỉ huy âm nhạc (4 năm):  Chỉ huy Hợp xướng; Chỉ huy Dàn nhạc",
+            "Chỉ huy âm nhạc VB2",
+            "Chỉ huy âm nhạc (4 năm)",
             "Âm nhạc học (4 năm)",
             "Biểu diễn nhạc cụ truyền thống (4 năm):  Sáo trúc, Tranh, Bầu, Nguyệt, Tỳ bà, Ghi-ta phím lốm, Nhị, Tam Thập lục.",
             "Piano (4 năm)",
-            "Sáng tác âm nhạc (4 năm)",
+            "Sáng tác âm nhạc",
             "Sáng tác âm nhạc VB2 (2 năm)",
-            "Âm nhạc học VB2 (2 năm)",
+            "Âm nhạc học",
             "Chỉ huy âm nhạc VB2 (2 năm):  Chỉ huy Hợp xướng; Chỉ huy Dàn nhạc",
-            "Sáng tác âm nhạc VB2 (2 năm)",
+            "Sáng tác âm nhạc",
             "Biểu diễn nhạc cụ truyền thống (4 năm):  Sáo trúc, Tranh, Bầu, Nguyệt, Tỳ bà, Ghi-ta phím lốm, Nhị, Tam Thập lục.",
             "Biểu diễn nhạc cụ phương Tây (4 năm): Violon, Violon Alto, Violoncelle, Contrebasse; Harpe, Flûte, Tuba, Hautbois, Clarinette, Basson, Cor, Trompette, Trombone, Gõ giao hưởng, Accordéon, Guitare, Saxophone, Gõ nhạc nhẹ, Orgue điện tử, Piano nhạc nhẹ, Orgue điện tử, Piano nhạc nhẹ, Guitare nhạc nhẹ.",
             "Sáng tác âm nhạc (4 năm)"
         ],
-        "subject_group": [],
-        "point": {},
+        "subject_group": [
+            "A00",
+            "A01",
+            "N00"
+        ],
+        "point": {
+            "A01": 13.958333333333332,
+            "A00": 14.03125,
+            "N00": 22 
+        },
         "area": "Đông Nam Bộ",
         "logo": "https://media.kenhtuyensinh.vn/images/cms/2018/06/nhac-vien-hcm.jpg",
         "point_all": {}
@@ -6970,8 +6978,16 @@
             "Điêu khắc",
             "Đồ hoạ"
         ],
-        "subject_group": [],
-        "point": {},
+        "subject_group": [
+            "H03",
+            "H01",
+            "H02"
+        ],
+        "point": {
+            "H03": 20.0,
+            "H01": 22.5,
+            "H02": 25.0
+        },        
         "area": "Đông Nam Bộ",
         "logo": "https://media.kenhtuyensinh.vn/images/cms/2018/06/my-thuat-hcm.jpg",
         "point_all": {}

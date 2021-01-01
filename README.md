@@ -80,7 +80,26 @@ install python-dotenv to save env arg in .flaskenv
 mkdir app/templates to save html file
 
 
-### Up to global
+### DEPLOY
+Create heroku account
+git checkout -b deploy
+
+Assign an app with Heroku
+heroku apps:create hungnt-flask(name is exclusive)
+
+Heroki will make URL assign to app và remote repository , check
+git remote -v
+
+Prepare requirements.txt
+
+Heroku not supply Web Server for app, instead it suppose that we use our own Web server. So we use gunicorn
+
+Create Procfile: instruct how app execute in Heroku
+
+Setup env arg
+heroku config:set FLASK_APP=blog.py
+
+Up server:
 
 flask run
 git add .                        
