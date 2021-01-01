@@ -42,6 +42,41 @@ Open shell : scrapy shell “url”
 
 > add FEED_EXPORT_ENCODING = 'utf-8' in settings.py to export readable json file
 
+### Multiple page 
+
+``` python
+class MySpider(BaseSpider):
+    ...
+    # spider starts here
+    def parse(self, response):
+        ...
+        # A, D, E are done in parallel, A -> B -> C are done serially
+        yield Request(url=<A url>,
+                      ...
+                      callback=parseA)
+        yield Request(url=<D url>,
+                      ...
+                      callback=parseD)
+        yield Request(url=<E url>,
+                      ...
+                      callback=parseE)
+
+    def parseA(self, response):
+        ...
+        yield Request(url=<B url>,
+                      ...
+                      callback=parseB)
+
+    def parseB(self, response):
+        ...
+        yield Request(url=<C url>,
+                      ...
+                      callback=parseC)
+
+    def parseC(self, response):
+        ...
+
+```
 ### Splash
 ``` sh
 docker pull scrapinghub/splash
