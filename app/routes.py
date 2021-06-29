@@ -33,35 +33,38 @@ def make_matrix(datas, st_data):
 
 
         var_point = 0
+        var_point1 = 100
+        var_point2 = 100
         c = 0
         if(st_data[1] in college["point"]):
             c = c+1
             if st_data[2] > float(college["point"][st_data[1]]):
-                var_point += st_data[2] - float(college["point"][st_data[1]])
+                var_point1 = st_data[2] - float(college["point"][st_data[1]])
             else:
-                var_point += (float(college["point"][st_data[1]]) - st_data[2])*4
+                var_point1 = (float(college["point"][st_data[1]]) - st_data[2])*6
         if(st_data[3] in college["point"]):
             c = c+1
             if st_data[4] > float(college["point"][st_data[3]]):
-                var_point += st_data[4] - float(college["point"][st_data[3]])
+                var_point2 = st_data[4] - float(college["point"][st_data[3]])
             else:
-                var_point += (float(college["point"][st_data[3]]) - st_data[4])*4
+                var_point2 = (float(college["point"][st_data[3]]) - st_data[4])*6
 
         if c == 0:
-            var_point = 200
+            var_point = 100
         else:
-            var_point /= c
+            var_point = min(var_point1,var_point2)
 
 
 
         if float(college["fee"]) < st_data[5]:
             var_fee = st_data[5] - float(college["fee"])
         else:
-            var_fee = (float(college["fee"]) - st_data[5])*3
+            var_fee = (float(college["fee"]) - st_data[5])*2
 
 
 
-        var_major = sum(sorted([similar(st_data[6].lower(),i.lower())**2 for i in college["major_name"]])[-3:]) * 10
+        var_major = sorted([similar(st_data[6].lower(),i.lower())**2 for i in college["major_name"]])[-1] * 18 \
+        + sorted([similar(st_data[6].lower(),i.lower())**2 for i in college["major_name"]])[-2] * 10
 
         input_array.append([var_area,var_fee,var_point, var_major])
     return input_array
@@ -69,7 +72,7 @@ def make_matrix(datas, st_data):
 from topsis import topsis
 t = [i for i in datas if i["point"] != {}]
 input_array = make_matrix(t,st_data)
-topsis(input_array,[1,1,1,1],[-1, -1, -1,1])
+topsis(input_array,[3,1,3,3],[-1, -1, -1,1])
 
 
 @app.route('/college_recommend',methods=['GET','POST'])
@@ -122,6 +125,11 @@ def college_recommend():
         # res = t[id]
 
     return render_template('college_recommend.html', title='College Recomender', form=form,ress = zip(res,scores,inps,points, majors),all_std= all_std)
+
+
+
+
+
 
 
 @app.route('/post')
