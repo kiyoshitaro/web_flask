@@ -14,9 +14,17 @@ migrate = Migrate(app, db)
 model = joblib.load(open('models/pipe_clf_checkpoint.joblib', 'rb'))
 
 from app import routes, models
-
 import os
 import logging
+
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
+app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.gif']
+app.config['UPLOAD_PATH'] = 'static/uploads'
+app.config['OUTPUT_PATH'] = 'static/outputs'
+
+app.config['UPLOAD_FOLDER'] = "static/uploads"
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
 # def create_app(config_class=Config):
 # ...
 # if not app.debug and not app.testing:
