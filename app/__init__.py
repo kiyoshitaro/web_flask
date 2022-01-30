@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 import joblib
 
 app = Flask(__name__)
+# app = Flask(__name__, static_url_path='/static')
 
 app.config.from_object(Config)
 db = SQLAlchemy(app)
@@ -19,10 +20,10 @@ import logging
 
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.gif']
-app.config['UPLOAD_PATH'] = 'static/uploads'
-app.config['OUTPUT_PATH'] = 'static/outputs'
+app.config['UPLOAD_PATH'] = 'app/static/uploads'
+app.config['OUTPUT_PATH'] = 'app/static/outputs'
 
-app.config['UPLOAD_FOLDER'] = "static/uploads"
+app.config['UPLOAD_FOLDER'] = "app/static/uploads"
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 # def create_app(config_class=Config):

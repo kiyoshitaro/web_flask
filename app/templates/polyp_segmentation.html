@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block content %}
+<!-- Tên của các block (ở đây là content ) phải là duy nhất (unique) -->
+
+<section class="search-upgrade">
+  <div class="container-fluid p-0">
+    <div class="bgr-layer1">
+      <div class="inner">
+        <h1>Phân đoạn polyp</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="search" style="margin-right: 0px">
+          <h3>File Upload</h3>
+          <form action="{{ url_for('upload_files') }}" class="dropzone"></form>
+          {% block model %}{% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

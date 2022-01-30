@@ -223,9 +223,9 @@ def polyp_segment():
 
 @app.route('/polyp_segment', methods=['POST'])
 def upload_files():
-    for f in glob.glob("static/uploads/*.png"):
+    for f in glob.glob(app.config['UPLOAD_FOLDER'] + "/*.png"):
         os.remove(f)
-    for f in glob.glob("static/outputs/*.png"):
+    for f in glob.glob(app.config['UPLOAD_FOLDER'] + "/*.png"):
         os.remove(f)
 
     uploaded_file = request.files['file']
@@ -250,7 +250,7 @@ def segment():
 
     form = PolypForm()
     img_size = (352, 352)
-    img_paths = glob.glob("static/uploads/*.png")
+    img_paths = glob.glob(app.config['UPLOAD_FOLDER'] + "/*.png")
     print("111")
 
     if form.validate_on_submit():
@@ -321,9 +321,26 @@ def segment():
                     mask_img.round(),
                     "cv2",
                 )
-    pr = ["upload/output/PR_SCWSRCCANet/"  + os.path.basename(file) for file in img_paths]
-    pr_mask = ["upload/output/PR_MASK_SCWSRCCANet/"  + os.path.basename(file) for file in img_paths]
+    pr = [
+        app.config['OUTPUT_PATH'] + "/PR_SCWSRCCANet/" + os.path.basename(file)
+        for file in img_paths
+    ]
 
+    # pr = [
+    #     url_for('static/outputs/PR_SCWSRCCANet/', filename='os.path.basename(file)')
+    #     for file in img_paths
+    # ]
+
+    pr_mask = [
+        app.config['OUTPUT_PATH'] + "/PR_MASK_SCWSRCCANet/" +
+        os.path.basename(file) for file in img_paths
+    ]
+    # pr_mask = [
+    #     url_for('static/outputs/PR_MASK_SCWSRCCANet/', filename='os.path.basename(file)')
+    #     for file in img_paths
+    # ]
+
+    print(img_paths, pr)
     return render_template(
         'choosemodel.html',
         title='Choose model polyp segmentation',

@@ -1,0 +1,26 @@
+{% extends "polyp_segmentation.html" %} {% block model %}
+<!-- Tên của các block (ở đây là content ) phải là duy nhất (unique) -->
+<form action="" method="post" validate>
+  {{ form.hidden_tag() }}
+  <div class="tbody row">
+    <div class="col-10"></div>
+    <div class="col-2">{{ form.submit() }}</div>
+  </div>
+</form>
+<img src="{{url_for('static', filename='cju1brhsj3rls0855a1vgdlen.png')}}"></img>
+<img src="/static/cju1brhsj3rls0855a1vgdlen.png"></img>
+{% if imgs %} {% for img_path, pr, pr_mask in imgs %}
+<div class="uni-item" style="max-height: 800px">
+  <div class="uni-logo">
+    <img class="img-fluid b-error" src="{{img_path}}" alt="image" />
+  </div>
+  <div class="uni-logo">
+    <img class="img-fluid b-error" src="{{pr}}" alt="pr" />
+  </div>
+
+  <div class="uni-logo">
+    <img class="img-fluid b-error" src="{{pr_mask}}" alt="pr mask" />
+  </div>
+</div>
+
+{% endfor %} {% endif %} {% endblock %}
