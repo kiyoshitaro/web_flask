@@ -294,7 +294,7 @@ def segment():
                                  align_corners=False)
                 res = res.sigmoid().data.cpu().numpy().squeeze()
                 res = (res - res.min()) / (res.max() - res.min() + 1e-8)
-                print(filename, res)
+                print(filename, res, "sss")
                 save_img(
                     os.path.join(
                         app.config['OUTPUT_PATH'],
