@@ -4,3 +4,4 @@ web_crawler/spiders/__pycache__
 hequyetdinh.pdf
 .vscode
 __pycache__
+*/__pycache__/
